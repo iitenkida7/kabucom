@@ -5,3 +5,19 @@ services:
     command: mock -h 0.0.0.0 https://raw.githubusercontent.com/kabucom/kabusapi/master/reference/kabu_STATION_API.yaml
     ports: 
       - 4010:4010
+  php:
+    build: docker/php
+    volumes:
+      - ./laravel:/usr/src/laravel
+    working_dir: /usr/src/laravel/public
+    entrypoint: "php -S 0.0.0.0:8000" 
+    ports: 
+      - 8000:8000
+  composer:
+    image: composer:1.9.0
+    command: 'composer update'
+    volumes: 
+      - ./laravel:/usr/src/laravel
+    working_dir: /usr/src/laravel
+    links:
+      - php
