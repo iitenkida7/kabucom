@@ -13,4 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'KabuController@index');
+Route::get('/board/{symbol}', 'KabuController@board')
+    ->where('symbol', '[0-9]+');
+
