@@ -36,15 +36,12 @@ class KabuApi
         return json_decode($res->getBody(),true);
     }
  
-    public function register(int $symbol): bool
+    public function register(array $symbols): bool
     {
         $res = $this->client->request('PUT', config('kabusapi.url') . '/register', [
             'headers' => ['X-API-KEY' => $this->token],
             'json' => [
-                'Symbols' => [[
-                    'Symbol' => $symbol,
-                    'Exchange' => 1, // 東証
-                ]],
+                'Symbols' => $symbols,
             ],
         ]);
         if ($res->getStatusCode() === 200){
