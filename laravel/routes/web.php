@@ -17,3 +17,4 @@ Route::get('/board/{symbol}', 'KabuController@board')
     ->where('symbol', '[0-9]+');
 
 Route::get('/regist', 'KabuController@registSymbols'); 
+Route::get('/unregist', 'KabuController@unregistAll'); 

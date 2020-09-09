@@ -36,6 +36,8 @@ class KabuApi
         return json_decode($res->getBody(),true);
     }
  
+
+
     public function register(array $symbols): bool
     {
         $res = $this->client->request('PUT', config('kabusapi.url') . '/register', [
@@ -44,6 +46,16 @@ class KabuApi
                 'Symbols' => $symbols,
             ],
         ]);
+        if ($res->getStatusCode() === 200){
+            return true;
+        }
+        return false;
+    }
+
+    public function unregister(): bool
+    {
+        $res = $this->client->request('PUT', config('kabusapi.url') . '/unregister/all', [
+            'headers' => ['X-API-KEY' => $this->token]]);
         if ($res->getStatusCode() === 200){
             return true;
         }

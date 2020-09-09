@@ -22,4 +22,9 @@ class KabuController extends Controller
             [ 'Symbol' => 3769, 'Exchange' => 1 ], // GMOペイメントゲートウェイ
         ]);
     }
+
+    public function unregistAll(): bool
+    {
+        return (new KabuApi())->unregister();
+    }
 }
