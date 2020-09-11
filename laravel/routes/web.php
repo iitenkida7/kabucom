@@ -18,3 +18,5 @@ Route::get('/board/{symbol}', 'KabuController@board')
 
 Route::get('/regist', 'KabuController@registSymbols');
 Route::get('/unregist', 'KabuController@unregistAll');
+
+Route::get('/websocket', 'KabuController@websocket');
