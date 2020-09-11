@@ -2,6 +2,9 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Facades\Redis;
+use GuzzleHttp\Psr7;
+use GuzzleHttp\Exception\RequestException;
 
 
 class KabuApi
@@ -13,7 +16,14 @@ class KabuApi
     public function __construct()
     {
         $this->client = new \GuzzleHttp\Client();
-        $this->token = $this->getToken();
+
+        // TODO Tokenが死んでいるときの再取得処理が 考慮されていない
+        Redis::set('token', null);
+        $this->token = Redis::get('token');
+        if($this->token == null){
+            $this->token = $this->getToken();
+            Redis::set('token', $this->token);
+        }       
     }
 
     private function getToken() :string
@@ -65,18 +75,26 @@ class KabuApi
 
     public function sendOrder(): bool
     {
+
+        try {
         $res = $this->client->request('POST', config('kabusapi.url') . '/sendorder', [
             'headers' => ['X-API-KEY' => $this->token],
             'json' => $this->orderInfo],
             );
-          
+        } catch (RequestException $e) {
+            echo Psr7\str($e->getRequest());
+            if ($e->hasResponse()) {
+                echo Psr7\str($e->getResponse());
+            }
+        }
+            
         if ($res->getStatusCode() === 200) {
             return true;
         }
         return false;
     }
 
-    public function orderInfoBuilder(int $exchange, int $side, string $symbol, int $qty, int $price) : object
+    public function orderInfoBuilder(int $exchange, int $side, string $symbol, int $qty, float $price) : object
     {
         $this->orderInfo = [
             'Password' => config('kabusapi.orderPassword'),
@@ -97,4 +115,20 @@ class KabuApi
         ];
         return $this;
     }
+
+
+    public function websocket()
+    {
+        $client = new WebSocket\Client(config('kabusapi.websocketUrl'));
+        while (true) {
+            try {
+                $message = $client->receive();
+                echo "AAA";
+            } catch (\WebSocket\ConnectionException $e) {
+                var_dump($e)
+            }
+        }
+        $client->close();
+    }
 }
+
