@@ -106,9 +106,10 @@ class KabuApi
             'SecurityType' => 1, //株式（固定）
             'Side' => $side,
             'CashMargin' => 1, // 1:現物, 2:信用新規, 3:信用返済
-             // 'MarginTradeType' => 0, // 現物省略化 1:制度信用, 2:一般信用, 3:一般信用（売短）
-            'DelivType' => 0,  //  0:指定なし, 1:自動振替, 2:お預り金
-            'FundType' => ' ', //  ' ':現物売、信用返済の場合  ※よくわからん。
+            //'MarginTradeType' => '', // 現物省略化 1:制度信用, 2:一般信用, 3:一般信用（売短）
+            'DelivType' => 2,  //  0:指定なし, 1:自動振替, 2:お預り金
+            'FundType' => 'AA', //  ' ':現物売、信用返済の場合  ※よくわからん。
+            'AccountType' => 4, // 4:特定
             'Qty' => $qty, // 数量
             // 'ClosePositionOrder' => ,
             // 'ClosePositions' => ,
@@ -116,6 +117,7 @@ class KabuApi
             'ExpireDay' => 0, // 0:当日
             'FrontOrderType' => 20 // 20:指値
         ];
+        //dd(Collect($this->orderInfo)->toJson());
         return $this;
     }
 
