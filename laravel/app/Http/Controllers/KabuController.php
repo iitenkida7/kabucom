@@ -34,7 +34,7 @@ class KabuController extends Controller
 
     public function order(): bool
     {
-        return (new KabuApi())->orderInfoBuilder(Exchange::TOSHO, Side::BUY, 8308, 100, 388.7)->sendOrder();
+        return (new KabuApi())->orderInfoBuilder(Exchange::TOSHO, Side::BUY, 8308, 100, 397.2)->sendOrder();
     }
 
     public function websocket()
