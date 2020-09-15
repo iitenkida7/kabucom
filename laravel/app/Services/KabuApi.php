@@ -17,6 +17,8 @@ class KabuApi
     {
         $this->client = new \GuzzleHttp\Client();
 
+        $this->token = $this->getToken();
+        /*
         // TODO Tokenが死んでいるときの再取得処理が 考慮されていない
         Redis::set('token', null);
         $this->token = Redis::get('token');
@@ -24,6 +26,7 @@ class KabuApi
             $this->token = $this->getToken();
             Redis::set('token', $this->token);
         }       
+        */      
     }
 
     private function getToken() :string
