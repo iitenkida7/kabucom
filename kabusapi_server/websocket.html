@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <script>
+        // WebSocketのクライアントの生成
+        let ws = new WebSocket('ws://localhost:18080/kabusapi/websocket')
+ 
+        // 接続時に呼ばれる
+        ws.addEventListener('open', e => {
+            console.log('open')
+        })
+
+        // サーバからのデータ受信時に呼ばれる
+        ws.addEventListener('message', e => {
+            console.log(e.data)
+        })
+    </script>
+</body>
+</html>
