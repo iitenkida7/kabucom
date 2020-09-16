@@ -2,10 +2,10 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Redis;
 use GuzzleHttp\Psr7;
 use GuzzleHttp\Exception\RequestException;
-
 
 class KabuApi
 {
@@ -25,7 +25,7 @@ class KabuApi
         if($this->token == null){
             $this->token = $this->getToken();
             Redis::set('token', $this->token);
-        }       
+        } 
         */      
     }
 
