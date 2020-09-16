@@ -120,20 +120,5 @@ class KabuApi
         //dd(Collect($this->orderInfo)->toJson());
         return $this;
     }
-
-
-    public function websocket()
-    {
-        $client = new WebSocket\Client(config('kabusapi.websocketUrl'));
-        while (true) {
-            try {
-                $message = $client->receive();
-                echo "AAA";
-            } catch (\WebSocket\ConnectionException $e) {
-                var_dump($e)
-            }
-        }
-        $client->close();
-    }
 }
 
