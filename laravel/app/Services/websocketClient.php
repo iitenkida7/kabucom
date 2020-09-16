@@ -9,7 +9,7 @@ use Amp\Loop;
 
 use function Amp\Websocket\Client\connect;
 
-class websocketClinet
+class WebsocketClinet
 {
 
     // https://github.com/amphp/websocket-client
