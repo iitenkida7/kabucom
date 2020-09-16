@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\KabuApi;
+use App\Services\WebsocketClinet;
 
 use App\Enums\Exchange;
 use App\Enums\Side;
@@ -39,15 +40,6 @@ class KabuController extends Controller
 
     public function websocket()
     {
-        $client = new WebSocket\Client("ws://echo.websocket.org/");
-        while (true) {
-            try {
-                $message = $client->receive();
-                echo "AAA";
-            } catch (\WebSocket\ConnectionException $e) {
-                var_dump($e)
-            }
-        }
-        $client->close();
+        return (new WebsocketClinet())->run();
     }
 }
